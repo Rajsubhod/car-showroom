@@ -7,18 +7,18 @@ function Car() {
         {cars.map((car, index) => (
           <div key={index} className="col-md-6 col-lg-4 mb-4">
             <div className="card">
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between p-2">
                 <span>{car.data}</span>
                 <button type="button" className="btn btn-link p-0">
-                  {car.reviews}
+                  Reviews {car.reviews}
                 </button>
               </div>
-              <h5 className="card-title">
+              <h5 className="card-title mt-4 p-2">
                 {car.carname} ({car.type})
               </h5>
               <img
                 src={car.image}
-                className="card-img-top mt-2"
+                className="card-img-top"
                 alt={`${car.carname} image`}
               />
               <div className="card-body d-flex flex-column gap-3">
