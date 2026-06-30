@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "fermentId": "019f1808-cd02-776b-878f-160f188767a3",
+  "phaseId": "phase-1",
+  "phaseName": "Rewrite Car.jsx with layout and JSX fixes",
+  "attempt": 1,
+  "timestamp": "2026-06-30T10:43:31.182Z",
+  "goal": "Rewrite src/components/Car.jsx so the rendered cards are smaller (Bootstrap grid column), the date+reviews row uses flex spacing with reviews wrapped in a button, the card-body inner structure has spacing both between paired items and between the two outer divs, and the footer has space between price and Buy Now button. Also fix the existing `class=` parse error on the h5 and remove the unused `React` import.",
+  "summary": "Phase 1 complete: rewrote /home/rejeo/Projects/car-showroom/src/components/Car.jsx from scratch with all 8 changes (removed unused React import, fixed class=→className= on h5, wrapped each card in col-md-6 col-lg-4 mb-4 inside a row, restructured date+reviews row to d-flex justify-content-between with reviews wrapped in a clickable button, restructured card-body to d-flex flex-column gap-3 with inner pairs d-flex justify-content-between, restructured footer to card-footer d-flex justify-content-between align-items-center, added alt text and key={index}). All 4 verification steps passed: AST walk for no bare class=, 5-check AST walk for structural layout requirements, npm run build (23 modules, 423ms, no errors), npx eslint (exit 0, zero warnings). Only Car.jsx was modified.",
+  "stepSummaries": "  1. Rewrite src/components/Car.jsx: (a) remove the unused `import React from \"react\";`, (b) wrap each card in a `<div className=\"col-md-6 col-lg-4 mb-4\">` inside a `<div className=\"row\">` so cards are smaller and responsive, (c) make the date+reviews row a `<div className=\"d-flex justify-content-between\">` and wrap the reviews number in a `<button type=\"button\" className=\"btn btn-link p-0\">` element so it is clickable, (d) inside `card-body`, give the two outer divs `d-flex flex-column gap-3` and each inner pair `d-flex justify-content-between` so both inter-pair and intra-pair spacing exists, (e) give the card footer `d-flex justify-content-between align-items-center`. Also fix the bare `class=` to `className=` on the title h5. Preserve all car data bindings. [verified]\n  2. Verify the four structural layout requirements via @babel/parser AST walk: (1) a grid column class (col-md-6 or col-lg-4 or similar) appears on the card wrapper, (2) `d-flex justify-content-between` appears on the date+reviews row, (3) the reviews content `{car.reviews}` is wrapped in a `<button>` element, (4) `d-flex` and a gap utility appear on the card-body inner divs, (5) `d-flex justify-content-between` appears on the footer. [verified]\n  3. Run `npm run build` to confirm the project compiles after the JSX fixes (h5 class=→className= and removing unused React import) and the new layout markup. [verified]\n  4. Run `npx eslint src/components/Car.jsx` and confirm zero errors on the rewritten file. [verified]",
+  "diffAvailable": true,
+  "diffFilesChanged": "...9f17dc-78ee-70bd-950e-6392045ced43.events.jsonl |  6 +++\n .../019f17dc-78ee-70bd-950e-6392045ced43.json      | 42 ++++++++++++---\n .../runtime.json                                   | 15 ++++--\n src/components/Car.jsx                             | 59 ++++++++++++++++++++--\n src/components/Caraousel.jsx                       | 38 ++++++++++++--\n src/components/Footer.jsx                          | 11 ++--\n src/data/cars.js                                   | 38 ++++++++++++++\n 7 files changed, 183 insertions(+), 26 deletions(-)",
+  "flags": [],
+  "derivedGrade": "A",
+  "reviewerRationale": "All gates pass; project checks validate.",
+  "gateVerdicts": [
+    {
+      "id": "F1",
+      "verdict": "pass",
+      "rationale": "All 4 steps used real verification. Step 1 (AST walk via @babel/parser for bare class= attrs), Step 2 (5-check AST walk for structural layout — JSXElement.children traversal for the button-reviews check), Step 3 (npm run build via Vite/Oxc — real production transformer), Step 4 (npx eslint — real project lint config). No proxies or sentinels.",
+      "evidence": "Step 2 output: \"PASS: all 5 structural layout checks\" with all 5 true. Step 3 output: \"✓ 23 modules transformed. ✓ built in 423ms.\" Step 4 output: \"exit=0\" with empty stdout/stderr."
+    },
+    {
+      "id": "F2",
+      "verdict": "pass",
+      "rationale": "Phase goal: rewrite Car.jsx with smaller cards, flex-spaced date+reviews row with reviews wrapped in a button, properly-spaced card-body, and flex-spaced footer, plus JSX bug fixes. The final file at src/components/Car.jsx contains all 8 changes (verified by the AST walks), builds cleanly (Vite 23 modules), and lints cleanly (ESLint exit 0). Phase goal fully delivered.",
+      "evidence": "src/components/Car.jsx — all layout classes present (col-md-6 col-lg-4, d-flex justify-content-between on date+reviews row, d-flex flex-column gap-3 on card-body, d-flex justify-content-between align-items-center on footer), reviews wrapped in <button>, no React import, no bare class= attribute."
+    },
+    {
+      "id": "F3",
+      "verdict": "pass",
+      "rationale": "Nothing deferred — all 4 steps complete and all 6 success criteria verified. No follow-up work identified.",
+      "evidence": "n/a"
+    }
+  ],
+  "projectChecks": {
+    "discovered": true,
+    "anyFailed": false,
+    "commands": [
+      {
+        "kind": "lint",
+        "command": "npm run lint",
+        "exitCode": 0,
+        "durationMs": 0,
+        "timedOut": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "id": "019f17ed-6929-77f9-9bc1-af3d93536875",
+  "name": "Complete Carousel Bootstrap",
+  "description": "Complete the corousole.jsx next",
+  "status": "paused",
+  "worktree": {
+    "path": "/home/rejeo/Projects/car-showroom",
+    "branch": "master",
+    "commit": "a349ec1d58fffeb91066a1ecc7043c3bb343864e"
+  },
+  "scoping": {
+    "goal": {
+      "answer": "Fix src/components/Caraousel.jsx so it renders a working Bootstrap 5 carousel: convert all bare `class=` attributes to JSX `className=`, add the missing `id=\"carouselExample\"` to the root element so the prev/next buttons' `data-bs-target` can wire up, and enable auto-rotation via `data-bs-ride=\"carousel\"`. Bootstrap CSS and JS bundle are already imported in main.jsx.",
+      "confirmedAt": "2026-06-30T09:56:05.184Z"
+    },
+    "criteria": {
+      "answer": "Caraousel.jsx uses React-valid syntax: all HTML attributes are written as JSX (`className`, no bare `class=` or `for=`).\nThe carousel's root `<div>` has an `id` that matches the `data-bs-target` of the prev/next buttons, so Bootstrap's carousel JS can wire them up correctly.\nThe component renders three slides using Bootstrap 5 carousel markup (`carousel`, `carousel-inner`, `carousel-item`) with the existing picsum images and prev/next controls.\nNo manual event handlers are introduced — Bootstrap's data attributes drive the carousel behavior; carousel auto-rotates via `data-bs-ride=\"carousel\"`.\n`npm run build` succeeds with no errors, and `npx eslint src/components/Caraousel.jsx` produces no errors.",
+      "confirmedAt": "2026-06-30T09:56:05.184Z"
+    },
+    "constraints": {
+      "answer": "Only modify src/components/Caraousel.jsx — do not touch App.jsx, main.jsx, index.css, or other files., Keep the existing picsum image URLs and prev/next controls unchanged., Do not add new npm dependencies; use Bootstrap 5 (already loaded via main.jsx and index.css)., Keep the default export signature as `function Caraousel()` returning JSX (note: filename has the original typo \"Caraousel\"; renaming is out of scope).",
+      "confirmedAt": "2026-06-30T09:56:05.184Z"
+    },
+    "phases": {
+      "answer": "Fix carousel JSX and wire Bootstrap",
+      "confirmedAt": "2026-06-30T09:56:05.184Z"
+    },
+    "assumptions": {
+      "answer": "The existing Caraousel.jsx is intended to be a Bootstrap 5 carousel but currently has two defects: (1) `class=` is used instead of JSX `className=` — this will throw a React/JSX parse error and break the build, and (2) the root `<div>` lacks the `id=\"carouselExample\"` that the prev/next buttons reference via `data-bs-target=\"#carouselExample\"`, so even after fixing syntax the controls would not be wired up. The fix is mechanical: rename attributes to `className`, add the missing `id`, and include `data-bs-ride=\"carousel\"` so the carousel auto-rotates (the standard Bootstrap hero-carousel behavior — the user can change to manual-only later if desired). Bootstrap CSS and the JS bundle (`bootstrap/dist/js/bootstrap.bundle`) are already imported in src/main.jsx and src/index.css respectively, so no further setup is needed for runtime behavior. The filename typo \"Caraousel\" is preserved per the constraint to not touch App.jsx; renaming would be a separate refactor.",
+      "confirmedAt": "2026-06-30T09:56:05.184Z"
+    }
+  },
+  "phases": [
+    {
+      "id": "phase-1",
+      "index": 1,
+      "name": "Fix carousel JSX and wire Bootstrap",
+      "goal": "Rewrite src/components/Caraousel.jsx so it (a) uses JSX-valid `className` attributes throughout, (b) has the missing `id=\"carouselExample\"` on the root carousel element, and (c) auto-rotates via `data-bs-ride=\"carousel\"` — keeping the existing three picsum slides and prev/next controls.",
+      "description": "Mechanical fix to make the existing carousel actually compile and function.",
+      "parallel": false,
+      "status": "active",
+      "steps": [
+        {
+          "id": "step-1",
+          "index": 1,
+          "description": "Rewrite src/components/Caraousel.jsx: replace every `class=` with `className=`, add `id=\"carouselExample\"` to the root `<div className=\"carousel slide\">`, and add `data-bs-ride=\"carousel\"` for auto-rotation. Keep all three picsum slides, the prev/next buttons, and their `data-bs-target=\"#carouselExample\"` references unchanged.",
+          "status": "verified",
+          "verification": {
+            "command": "node -e \"const p=require('@babel/parser');const fs=require('fs');const ast=p.parse(fs.readFileSync('src/components/Caraousel.jsx','utf8'),{sourceType:'module',plugins:['jsx']});let bad=[];const w=n=>{if(!n||typeof n!=='object')return;if(n.type==='JSXAttribute'&&n.name?.name==='class')bad.push(n.name.name);for(const k of Object.keys(n)){const v=n[k];if(Array.isArray(v))v.forEach(w);else if(v&&typeof v==='object'&&typeof v.type==='string')w(v);}};w(ast);if(bad.length){console.error('FAIL: bare class= attrs:',bad);process.exit(1)}console.log('PASS: no bare class= attributes')\"",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-30T09:56:16.047Z",
+          "completedAt": "2026-06-30T10:04:32.939Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-30T10:04:32.939Z"
+          }
+        },
+        {
+          "id": "step-2",
+          "index": 2,
+          "description": "Verify the root carousel `<div>` has `id=\"carouselExample\"` and at least one button references `data-bs-target=\"#carouselExample\"` so the IDs match.",
+          "status": "verified",
+          "verification": {
+            "command": "grep -E 'id=\"carouselExample\"|data-bs-target=\"#carouselExample\"' src/components/Caraousel.jsx",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-30T10:07:08.230Z",
+          "completedAt": "2026-06-30T10:08:06.350Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-30T10:08:06.350Z"
+          }
+        },
+        {
+          "id": "step-3",
+          "index": 3,
+          "description": "Run `npm run build` to confirm the project compiles after the JSX fix (which previously had a parse error from `class=`).",
+          "status": "verified",
+          "verification": {
+            "command": "npm run build",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-30T10:09:46.664Z",
+          "completedAt": "2026-06-30T10:10:03.938Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-30T10:10:03.938Z"
+          }
+        },
+        {
+          "id": "step-4",
+          "index": 4,
+          "description": "Run `npx eslint src/components/Caraousel.jsx` and confirm zero errors on the fixed file.",
+          "status": "pending",
+          "verification": {
+            "command": "npx eslint src/components/Caraousel.jsx",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-30T10:11:48.295Z"
+        }
+      ],
+      "startedAt": "2026-06-30T09:56:09.368Z"
+    }
+  ],
+  "decisions": [],
+  "memories": [],
+  "createdAt": "2026-06-30T09:47:42.761Z",
+  "updatedAt": "2026-06-30T10:13:29.541Z",
+  "goal": "Fix src/components/Caraousel.jsx so it renders a working Bootstrap 5 carousel: convert all bare `class=` attributes to JSX `className=`, add the missing `id=\"carouselExample\"` to the root element so the prev/next buttons' `data-bs-target` can wire up, and enable auto-rotation via `data-bs-ride=\"carousel\"`. Bootstrap CSS and JS bundle are already imported in main.jsx.",
+  "successCriteria": [
+    "Caraousel.jsx uses React-valid syntax: all HTML attributes are written as JSX (`className`, no bare `class=` or `for=`).",
+    "The carousel's root `<div>` has an `id` that matches the `data-bs-target` of the prev/next buttons, so Bootstrap's carousel JS can wire them up correctly.",
+    "The component renders three slides using Bootstrap 5 carousel markup (`carousel`, `carousel-inner`, `carousel-item`) with the existing picsum images and prev/next controls.",
+    "No manual event handlers are introduced — Bootstrap's data attributes drive the carousel behavior; carousel auto-rotates via `data-bs-ride=\"carousel\"`.",
+    "`npm run build` succeeds with no errors, and `npx eslint src/components/Caraousel.jsx` produces no errors."
+  ],
+  "constraints": [
+    "Only modify src/components/Caraousel.jsx — do not touch App.jsx, main.jsx, index.css, or other files.",
+    "Keep the existing picsum image URLs and prev/next controls unchanged.",
+    "Do not add new npm dependencies; use Bootstrap 5 (already loaded via main.jsx and index.css).",
+    "Keep the default export signature as `function Caraousel()` returning JSX (note: filename has the original typo \"Caraousel\"; renaming is out of scope)."
+  ],
+  "lastActiveAt": "2026-06-30T09:56:09.368Z",
+  "activePhaseId": "phase-1"
+}
