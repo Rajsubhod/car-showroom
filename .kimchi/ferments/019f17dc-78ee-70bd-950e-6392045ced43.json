@@ -1,0 +1,115 @@
+{
+  "id": "019f17dc-78ee-70bd-950e-6392045ced43",
+  "name": "Header Layout Bootstrap",
+  "description": "Complete the Header.jsx file as follows to teh top left have a logo img followed with the text \"Auto World\" this whole things shoul be in a red background div, next to it will be two more header fields Offers and then Contact us. Towards the right have a singup button with black color. For the time being neither  of them shoudl trigger any event they should just exist for show. Also for styling you may use the bootstrap components.",
+  "status": "running",
+  "worktree": {
+    "path": "/home/rejeo/Projects/car-showroom"
+  },
+  "scoping": {
+    "goal": {
+      "answer": "Rewrite src/components/Header.jsx so it renders a Bootstrap-styled top navigation bar with a red-background logo block (\"Auto World\" + logo image) on the top-left, \"Offers\" and \"Contact us\" nav items in the middle, and a black \"Sign up\" button on the right — with no click handlers or event logic.",
+      "confirmedAt": "2026-06-30T09:31:39.147Z"
+    },
+    "criteria": {
+      "answer": "Header.jsx renders a logo image followed by the text \"Auto World\" inside a red-background container anchored to the top-left of the header.\nTwo navigation items, \"Offers\" and \"Contact us\", appear next to the logo block within the header.\nA \"Sign up\" button with black background color is positioned toward the right side of the header.\nNone of the header elements (logo, nav items, sign-up button) trigger any event handlers — they exist purely for show.\nStyling uses Bootstrap 5 classes/components (already installed as a dependency).\n`npm run build` succeeds with no errors, and `npm run lint` produces no errors on Header.jsx.",
+      "confirmedAt": "2026-06-30T09:31:39.147Z"
+    },
+    "constraints": {
+      "answer": "Only modify src/components/Header.jsx — do not touch App.jsx, main.jsx, index.css, or other component files., Use only Bootstrap 5 classes for layout/styling; do not add new npm dependencies., Do not wire any onClick handlers, navigation, or state — elements are display-only., Keep the default export signature as `function Header()` returning JSX.",
+      "confirmedAt": "2026-06-30T09:31:39.147Z"
+    },
+    "phases": {
+      "answer": "Build header layout",
+      "confirmedAt": "2026-06-30T09:31:39.147Z"
+    },
+    "assumptions": {
+      "answer": "The project is React 19 + Vite with Bootstrap 5.3.8 already in dependencies; no additional packages are needed. The logo image is not provided by the user, so I will use a generic placeholder `<img>` element with a sensible alt text and src (either an inline data URI placeholder or a path under public/) — the user can swap in their real logo later. Bootstrap's `navbar`, `navbar-expand`, `container-fluid`, `d-flex`, and utility color/spacing classes (`bg-danger`, `bg-dark`, `text-white`) are sufficient for the requested layout. Since the user said \"logo img\" generically and provided no asset, a placeholder approach is a safe default; if a specific logo asset is required, the user can supply it after the ferment completes.",
+      "confirmedAt": "2026-06-30T09:31:39.147Z"
+    }
+  },
+  "phases": [
+    {
+      "id": "phase-1",
+      "index": 1,
+      "name": "Build header layout",
+      "goal": "Replace the placeholder Header.jsx with a Bootstrap navbar containing the red logo block (image + \"Auto World\" text) on the left, \"Offers\" and \"Contact us\" nav items in the center, and a black \"Sign up\" button on the right — display-only with no event handlers.",
+      "description": "Implement the full Header.jsx layout per the user's spec, then verify build + lint.",
+      "parallel": false,
+      "status": "active",
+      "steps": [
+        {
+          "id": "step-1",
+          "index": 1,
+          "description": "Replace the contents of src/components/Header.jsx with a Bootstrap `navbar` containing a red-background `bg-danger` div/logo block on the left (an `<img>` with alt text plus the text \"Auto World\"), two nav links (\"Offers\", \"Contact us\") in the center, and a black `bg-dark` \"Sign up\" button pushed to the right via flex utilities. No onClick handlers, no state, no navigation.",
+          "status": "running",
+          "verification": {
+            "command": "grep -E \"Auto World|Offers|Contact us|Sign up|bg-danger|bg-dark\" src/components/Header.jsx",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-30T09:31:46.293Z"
+        },
+        {
+          "id": "step-2",
+          "index": 2,
+          "description": "Verify grep finds NO onClick/onSubmit/onChange/onMouseDown handler attributes inside Header.jsx to confirm display-only behavior.",
+          "status": "pending",
+          "verification": {
+            "command": "! grep -E \"on(Click|Submit|Change|MouseDown|KeyDown|KeyUp|Focus|Blur)=\" src/components/Header.jsx",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false
+        },
+        {
+          "id": "step-3",
+          "index": 3,
+          "description": "Run `npm run build` to confirm the project compiles without errors after the Header rewrite.",
+          "status": "pending",
+          "verification": {
+            "command": "npm run build",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false
+        },
+        {
+          "id": "step-4",
+          "index": 4,
+          "description": "Run `npm run lint` and confirm zero errors on Header.jsx.",
+          "status": "pending",
+          "verification": {
+            "command": "npx eslint src/components/Header.jsx",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false
+        }
+      ],
+      "startedAt": "2026-06-30T09:31:41.756Z"
+    }
+  ],
+  "decisions": [],
+  "memories": [],
+  "createdAt": "2026-06-30T09:29:12.685Z",
+  "updatedAt": "2026-06-30T09:31:46.293Z",
+  "goal": "Rewrite src/components/Header.jsx so it renders a Bootstrap-styled top navigation bar with a red-background logo block (\"Auto World\" + logo image) on the top-left, \"Offers\" and \"Contact us\" nav items in the middle, and a black \"Sign up\" button on the right — with no click handlers or event logic.",
+  "successCriteria": [
+    "Header.jsx renders a logo image followed by the text \"Auto World\" inside a red-background container anchored to the top-left of the header.",
+    "Two navigation items, \"Offers\" and \"Contact us\", appear next to the logo block within the header.",
+    "A \"Sign up\" button with black background color is positioned toward the right side of the header.",
+    "None of the header elements (logo, nav items, sign-up button) trigger any event handlers — they exist purely for show.",
+    "Styling uses Bootstrap 5 classes/components (already installed as a dependency).",
+    "`npm run build` succeeds with no errors, and `npm run lint` produces no errors on Header.jsx."
+  ],
+  "constraints": [
+    "Only modify src/components/Header.jsx — do not touch App.jsx, main.jsx, index.css, or other component files.",
+    "Use only Bootstrap 5 classes for layout/styling; do not add new npm dependencies.",
+    "Do not wire any onClick handlers, navigation, or state — elements are display-only.",
+    "Keep the default export signature as `function Header()` returning JSX."
+  ],
+  "lastActiveAt": "2026-06-30T09:31:41.756Z",
+  "activePhaseId": "phase-1"
+}
